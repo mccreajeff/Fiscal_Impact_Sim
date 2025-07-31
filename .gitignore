@@ -1,0 +1,113 @@
+# -------------------------
+# OS / Editor
+# -------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# -------------------------
+# Environment files (commit only .env.example)
+# -------------------------
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+
+# -------------------------
+# Logs
+# -------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# -------------------------
+# Python (backend)
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+.venv/
+venv/
+env/
+pip-wheel-metadata/
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+.wheels/
+.mypy_cache/
+.pytype/
+.pyre/
+.ruff_cache/
+.pytest_cache/
+coverage.xml
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.ipynb_checkpoints/
+
+# If using pip-tools or Poetry lockfiles, DO NOT ignore those lockfiles
+# (requirements.txt/poetry.lock should be committed)
+
+# -------------------------
+# Node / Frontend (Vite/React)
+# -------------------------
+node_modules/
+dist/
+build/
+.cache/
+.vite/
+.eslintcache
+.npmrc
+
+# -------------------------
+# Test & Coverage (JS)
+# -------------------------
+coverage/
+.nyc_output/
+
+# -------------------------
+# Docker / Container
+# -------------------------
+docker-compose.override.yml
+# If you keep a local-only compose override or env:
+.env.docker
+.env.docker.*
+
+# -------------------------
+# Databases / Data artifacts
+# -------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+
+# -------------------------
+# Project data policy
+# Keep only the baseline CSV and docs; ignore other raw data by default.
+# -------------------------
+data/*
+!data/baseline_2025.csv
+!data/README.md
+
+# -------------------------
+# Misc
+# -------------------------
+*.tmp
+*.bak
+*.orig
