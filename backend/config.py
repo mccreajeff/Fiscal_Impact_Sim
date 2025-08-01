@@ -36,6 +36,7 @@ class Settings(BaseSettings):
         case_sensitive=True,
     )
 
+    # If file is missing, app fails
     @field_validator("baseline_csv", mode="after")
     def file_must_exist(cls, v: Path) -> Path:
         if not v.exists():
@@ -43,10 +44,9 @@ class Settings(BaseSettings):
         return v
 
 
-# singleton – import this everywhere else
+# Import this everywhere else
 settings = Settings()
 
-# Optional console hint (skip in tests for cleanliness)
 if settings.app_env != "test":
     print(
         f"[config] ENV={settings.app_env}  "
