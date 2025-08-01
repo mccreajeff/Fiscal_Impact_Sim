@@ -36,7 +36,6 @@ class Settings(BaseSettings):
         case_sensitive=True,
     )
 
-    # ----- Validators (v2 style) -----
     @field_validator("baseline_csv", mode="after")
     def file_must_exist(cls, v: Path) -> Path:
         if not v.exists():
