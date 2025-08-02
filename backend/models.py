@@ -22,11 +22,3 @@ class SimResult(BaseModel):
     spending: SpendingBreakdown
     deficit: int # positive = surplus; negative = deficit
     assumptions: dict[str, str]
-
-# outlines request/response fields
-
-# spend_adjustments fields
-
-# sim_request fields
-
-# sim_result fields
