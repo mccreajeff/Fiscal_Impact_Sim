@@ -18,8 +18,8 @@ ___
 
 Given:
 - `GDP` (USD, **> 0**)
-- `tax_rate` (percent, **0–50 inclusive**)
-- `spend_adjustments` (fractional deltas per category **−1.00..+1.00**)
+- `taxRate` (percent, **0–50 inclusive**)
+- `spendAdjustments` (fractional deltas per category **−1.00..+1.00**)
 - Baseline spending by category from `baseline_2025.csv`:
   - health: **1,300,000,000,000**
   - defense: **800,000,000,000**
@@ -27,8 +27,8 @@ Given:
   - other: **2,100,000,000,000**
 
 Compute:
-- **Revenue** = `GDP × (tax_rate / 100)`
-- **Adjusted category** = `baseline_category × (1 + delta)` (floored at 0)
+- **Revenue** = `GDP × (taxRate / 100)`
+- **Adjusted category** = `baselineCategory × (1 + delta)` (floored at 0)
 - **Total spending** = sum of adjusted categories (including `other`)
 - **Deficit/Surplus** (returned as `deficit`) = `Revenue − Total spending`  
   (positive = surplus, negative = deficit)
@@ -41,17 +41,17 @@ ___
 
 | Field                           | Type   | Units    | Constraints         | Notes                            |
 |---------------------------------|--------|----------|---------------------|----------------------------------|
-| `tax_rate`                       | number | percent  | 0–50 (inclusive)    | Overall average tax rate         |
+| `taxRate`                        | number | percent  | 0–50 (inclusive)    | Overall average tax rate         |
 | `gdp`                            | number | USD      | > 0                 | Nominal dollars                  |
-| `spend_adjustments.health`       | number | fraction | −1.00..+1.00        | `+0.03` = +3%                    |
-| `spend_adjustments.defense`      | number | fraction | −1.00..+1.00        |                                  |
-| `spend_adjustments.education`    | number | fraction | −1.00..+1.00        |                                  |
+| `spendAdjustments.health`        | number | fraction | −1.00..+1.00        | `+0.03` = +3%                    |
+| `spendAdjustments.defense`       | number | fraction | −1.00..+1.00        |                                  |
+| `spendAdjustments.education`     | number | fraction | −1.00..+1.00        |                                  |
 
 ### `POST /api/simulate` — Response body
 
 | Field                                 | Type   | Units | Notes                                                     |
 |---------------------------------------|--------|-------|-----------------------------------------------------------|
-| `revenue`                              | number | USD   | `GDP × (tax_rate/100)`                                    |
+| `revenue`                              | number | USD   | `GDP × (taxRate/100)`                                    |
 | `spending.health/defense/education`    | number | USD   | Adjusted category amounts                                 |
 | `spending.other`                       | number | USD   | Baseline `other` (unchanged unless you add a delta later) |
 | `spending.total`                       | number | USD   | Sum of all categories                                     |
@@ -62,7 +62,7 @@ ___
 
 | Field             | Type                  | Example          | Notes             |
 |-------------------|-----------------------|------------------|-------------------|
-| `tax_rate_range`  | array[number, number] | `[0, 50]`        | Inclusive         |
-| `delta_range`     | array[number, number] | `[-1.0, 1.0]`    | Fractional deltas |
-| `baseline_loaded` | boolean               | `true`           | From startup      |
+| `taxRateRange`    | array[number, number] | `[0, 50]`        | Inclusive         |
+| `deltaRange`      | array[number, number] | `[-1.0, 1.0]`    | Fractional deltas |
+| `baselineLoaded`  | boolean               | `true`           | From startup      |
 | `version`         | string                | `"0.1.0"`        | API version       |
