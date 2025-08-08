@@ -1,13 +1,13 @@
 import React from 'react'
 
-function Footer({
+export default function Footer({
     baselineLoaded = "True",
     version = "0.1.0",
-    apiBase = "Something",
+    apiBase  // omitted
 }) {
   return (
     <footer className="w-full border-t bg-white/80 backdrop-blur sticky bottom-0 z-10">
-        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-2 p-3 text-sm">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-center gap-2 p-3 text-sm">
             <div className="flex items-center gap-2">
                 <span className={`rounded-full px-2.5 py-1 border text-xs ${baselineLoaded ? 
                     'bg-emerald-50 text-emerald-700 border-emerald-200': 'bg-rose-50 text-rose-700 border-rose-200'}`}>
@@ -23,4 +23,3 @@ function Footer({
     </footer>
   )
 }
-export default Footer

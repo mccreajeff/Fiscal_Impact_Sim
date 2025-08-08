@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Header({ 
+export default function Header({ 
     title = "Fiscal Impact Simulator",
     docsHref = "/docs",
     githubHref = "https://github.com/mccreajeff/Fiscal_Impact_Sim",
@@ -87,4 +87,3 @@ function SunIcon({ className="" }) { return (
     <path d="M12 5.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm0-3a1 1 0 0 1 1 1v1.2a1 1 0 0 1-2 0V3.5a1 1 0 0 1 1-1Zm0 19.8a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v1.3a1 1 0 0 1-1 1Zm8-8a1 1 0 0 1-1-1h1.3a1 1 0 0 1 0 2H19a1 1 0 0 1 1-1ZM3 12.3a1 1 0 0 1 1-1H5.3a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1Zm14.9-6.6a1 1 0 0 1 1.4 0l.9.9a1 1 0 0 1-1.4 1.4l-.9-.9a1 1 0 0 1 0-1.4ZM4.7 18.9a1 1 0 0 1 1.4 0l.9.9a1 1 0 1 1-1.4 1.4l-.9-.9a1 1 0 0 1 0-1.4Zm13.7 2.3a1 1 0 0 1 0-1.4l.9-.9a1 1 0 0 1 1.4 1.4l-.9.9a1 1 0 0 1-1.4 0ZM6.1 6.1a1 1 0 0 1 1.4 0l.9.9A1 1 0 1 1 7 8.3l-.9-.9a1 1 0 0 1 0-1.4Z"/>
   </svg>
 );}
-export default Header
