@@ -1,5 +1,6 @@
-import React from "react";
-import { fmtUSD } from "../lib/format";
+import React from "react"
+import ResultChart from "./ResultChart";
+import { fmtUSD } from "../lib/format"
 
 export default function ResultsPanel({ 
     data,               // SimResult object
@@ -44,6 +45,9 @@ export default function ResultsPanel({
           positive={deficit >= 0}
         />
       </div>
+
+      {/* Chart */}
+      <ResultChart revenue={revenue} spending={spending} />
 
       {/* Category breakdown */}
       <div className="grid gap-2 md:grid-cols-2">

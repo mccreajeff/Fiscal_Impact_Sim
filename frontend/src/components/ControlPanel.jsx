@@ -77,7 +77,7 @@ export default function ControlPanel({
       {/* ───────── Spending Adjustments ───────── */}
       <section className="space-y-2">
         <label className="block font-medium text-sm">
-          Spending Adjustments&nbsp;(fraction)
+          Spending Adjustments&nbsp;(%)
         </label>
 
         {["health", "defense", "education"].map((cat) => (
@@ -85,76 +85,60 @@ export default function ControlPanel({
             key={cat}
             name={`spendAdjustments.${cat}`}
             control={control}
-            render={({ field }) => (
-              <div className="grid grid-cols-[90px_auto_auto_auto_auto] items-center gap-2">
-                <span className="capitalize text-sm">{cat}</span>
+            render={({ field }) => {
+              const percent = Math.round((Number(field.value) || 0) * 100);
+              const minP = Math.round(deltaRange[0] * 100);
+              const maxP = Math.round(deltaRange[1] * 100);
+              const clampP = (p) => Math.max(minP, Math.min(maxP, p));
+              return (
+                <div className="grid grid-cols-[90px_auto_auto_auto_auto] items-center gap-2">
+                  <span className="capitalize text-sm">{cat}</span>
 
-                {/* – button */}
-                <button
-                  type="button"
-                  className="border rounded px-1"
-                  onClick={() =>
-                    field.onChange(
-                      Math.max(
-                        deltaRange[0],
-                        +(field.value - 0.01).toFixed(2)
-                      )
-                    )
-                  }
-                >
-                  –
-                </button>
+                  {/* – button (1 percentage point) */}
+                  <button
+                    type="button"
+                    className="border rounded px-1"
+                    onClick={() => field.onChange(clampP(percent - 1) / 100)}
+                  >
+                    –
+                  </button>
 
-                {/* number input */}
-                <input
-                  type="number"
-                  step="0.01"
-                  min={deltaRange[0]}
-                  max={deltaRange[1]}
-                  value={field.value}
-                  onChange={(e) =>
-                    field.onChange(
-                      Math.max(
-                        deltaRange[0],
-                        Math.min(deltaRange[1], +e.target.value)
-                      )
-                    )
-                  }
-                  onBlur={() =>
-                    field.onChange(+parseFloat(field.value).toFixed(2))
-                  }
-                  className="w-24 rounded-md border px-2 py-1"
-                />
+                  {/* number input (percent-based) */}
+                  <input
+                    type="number"
+                    step="1"
+                    min={minP}
+                    max={maxP}
+                    value={percent}
+                    onChange={(e) => {
+                      const p = clampP(+e.target.value || 0);
+                      field.onChange(p / 100);
+                    }}
+                    onBlur={() => field.onChange(clampP(percent) / 100)}
+                    className="w-24 rounded-md border px-2 py-1"
+                  />
 
-                {/* + button */}
-                <button
-                  type="button"
-                  className="border rounded px-1"
-                  onClick={() =>
-                    field.onChange(
-                      Math.min(
-                        deltaRange[1],
-                        +(field.value + 0.01).toFixed(2)
-                      )
-                    )
-                  }
-                >
-                  +
-                </button>
+                  {/* + button (1 percentage point) */}
+                  <button
+                    type="button"
+                    className="border rounded px-1"
+                    onClick={() => field.onChange(clampP(percent + 1) / 100)}
+                  >
+                    +
+                  </button>
 
-                {/* % badge */}
-                <span className="text-xs text-slate-600">
-                  {(field.value >= 0 ? "+" : "") +
-                    (field.value * 100).toFixed(0)}
-                  %
-                </span>
-              </div>
-            )}
+                  {/* % badge */}
+                  <span className="text-xs text-slate-600">
+                    {(field.value >= 0 ? "+" : "") + percent}%
+                  </span>
+                </div>
+              );
+            }}
           />
         ))}
 
         <p className="text-xs text-slate-500">
-          Fractions −1.00 … +1.00&nbsp;&nbsp;(0.03 = +3 %, −0.10 = −10 %).
+          Percent {(deltaRange[0] * 100).toFixed(0)} … {(deltaRange[1] * 100).toFixed(0)}&nbsp;&nbsp;(3 = +3 %, −10 = −10 %).
         </p>
       </section>
 
