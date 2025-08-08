@@ -6,6 +6,9 @@ import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ControlPanel from './components/ControlPanel'
+import ResultsPanel from './components/ResultsPanel'
+
+const apiBase = import.meta.env.VITE_API_BASE
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -36,6 +39,9 @@ export default function App() {
           taxRateRange={meta.data?.taxRateRange ?? [0, 50]}
           deltaRange={meta.data?.deltaRange ?? [-1, 1]}
           onRun={(values) => simulate.mutate(values)}
+        />
+        <ResultsPanel
+
         />
         <Footer
           baselineLoaded={!!metadata?.baselineLoaded}
