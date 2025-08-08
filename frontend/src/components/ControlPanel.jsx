@@ -38,7 +38,7 @@ export default function ControlPanel({
           control={control}
           render={({ field }) => (
             <div className="flex items-center gap-3">
-              {/* slider */}
+              {/* slider (unchanged) */}
               <input
                 type="range"
                 min={taxRateRange[0]}
@@ -48,22 +48,33 @@ export default function ControlPanel({
                 onChange={(e) => field.onChange(+e.target.value)}
                 className="flex-1 cursor-pointer accent-indigo-600"
               />
-              {/* number box */}
+              {/* percent text input showing e.g. 25% */}
               <input
-                type="number"
-                min={taxRateRange[0]}
-                max={taxRateRange[1]}
-                step="0.1"
-                value={field.value}
-                onChange={(e) =>
-                  field.onChange(
-                    Math.min(
-                      taxRateRange[1],
-                      Math.max(taxRateRange[0], +e.target.value)
-                    )
-                  )
+                type="text"
+                inputMode="decimal"
+                value={
+                  field.value === '' || field.value === null || isNaN(field.value)
+                    ? ''
+                    : `${field.value}%`
                 }
-                className="w-20 rounded-md border px-2 py-1"
+                placeholder="0%"
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/[^0-9.]/g, '');
+                  if (raw === '') {
+                    field.onChange('');
+                    return;
+                  }
+                  let num = parseFloat(raw);
+                  if (isNaN(num)) num = taxRateRange[0];
+                  num = Math.min(taxRateRange[1], Math.max(taxRateRange[0], num));
+                  field.onChange(num);
+                }}
+                onBlur={() => {
+                  // ensure number (0 if blank)
+                  if (field.value === '' || field.value === null || isNaN(field.value))
+                    field.onChange(taxRateRange[0]);
+                }}
+                className="w-16 rounded-md border px-2 py-1 text-right"
               />
             </div>
           )}
@@ -91,55 +102,48 @@ export default function ControlPanel({
               const maxP = Math.round(deltaRange[1] * 100);
               const clampP = (p) => Math.max(minP, Math.min(maxP, p));
               return (
-                <div className="grid grid-cols-[90px_auto_auto_auto_auto] items-center gap-2">
-                  <span className="capitalize text-sm">{cat}</span>
+                <div className="grid grid-cols-[90px_70px_1fr] items-center gap-2">
+                  {/* Label */}
+                    <span className="capitalize text-sm">{cat}</span>
 
-                  {/* – button (1 percentage point) */}
-                  <button
-                    type="button"
-                    className="border rounded px-1"
-                    onClick={() => field.onChange(clampP(percent - 1) / 100)}
-                  >
-                    –
-                  </button>
-
-                  {/* number input (percent-based) */}
+                  {/* Percent text input */}
                   <input
-                    type="number"
-                    step="1"
-                    min={minP}
-                    max={maxP}
-                    value={percent}
+                    type="text"
+                    inputMode="numeric"
+                    value={`${percent}%`}
                     onChange={(e) => {
-                      const p = clampP(+e.target.value || 0);
+                      const raw = e.target.value.replace(/[^0-9-]/g, '');
+                      if (raw === '' || raw === '-') {
+                        field.onChange(0);
+                        return;
+                      }
+                      let p = parseInt(raw, 10);
+                      if (isNaN(p)) p = 0;
+                      p = clampP(p);
                       field.onChange(p / 100);
                     }}
                     onBlur={() => field.onChange(clampP(percent) / 100)}
-                    className="w-24 rounded-md border px-2 py-1"
+                    className="w-16 rounded-md border px-2 py-1 text-right"
                   />
 
-                  {/* + button (1 percentage point) */}
-                  <button
-                    type="button"
-                    className="border rounded px-1"
-                    onClick={() => field.onChange(clampP(percent + 1) / 100)}
-                  >
-                    +
-                  </button>
-
-                  {/* % badge */}
-                  <span className="text-xs text-slate-600">
-                    {(field.value >= 0 ? "+" : "") + percent}%
-                  </span>
+                  {/* Slider (percent-based) */}
+                  <input
+                    type="range"
+                    min={minP}
+                    max={maxP}
+                    step={1}
+                    value={percent}
+                    onChange={(e) => {
+                      const p = clampP(+e.target.value);
+                      field.onChange(p / 100);
+                    }}
+                    className="w-full accent-indigo-600 cursor-pointer"
+                  />
                 </div>
               );
             }}
           />
         ))}
-
-        <p className="text-xs text-slate-500">
-          Percent {(deltaRange[0] * 100).toFixed(0)} … {(deltaRange[1] * 100).toFixed(0)}&nbsp;&nbsp;(3 = +3 %, −10 = −10 %).
-        </p>
       </section>
 
       {/* ───────── Actions ───────── */}
