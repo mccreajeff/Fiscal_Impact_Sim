@@ -16,7 +16,6 @@ export default function ControlPanel({
     control,
     handleSubmit,
     reset,
-    water,
     formState: {isValid},
   } = useForm({
     defaultValues: defaultValues,
