@@ -26,12 +26,19 @@ app = FastAPI(title="Fiscal Impact Simulator",
               lifespan=lifespan)
 
 # ---- CORS middleware ----
+
+allowed_origins = {
+    str(settings.frontend_origin),   # http://localhost:5173 from .env
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+}
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_origin],  # List[str]
+    allow_origins= list(allowed_origins),  # List[str]
     allow_methods=["*"],                       # GET, POST, etc.
     allow_headers=["*"],                       # Content-Type, Authorization, ...
-    allow_credentials=False,                   # Change to True if you add cookies/auth
+    allow_credentials=False,                   
 )
 
 
