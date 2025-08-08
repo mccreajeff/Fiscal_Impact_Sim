@@ -25,7 +25,7 @@ export default function ControlPanel({
 
   return (
     <aside
-      className={`rounded-xl border bg-white dark:bg-slate-800 p-4 space-y-6 ${
+      className={`self-start h-fit rounded-xl border bg-white dark:bg-slate-800 p-4 space-y-6 ${
         disabled ? "opacity-60" : ""
       }`}
     >
