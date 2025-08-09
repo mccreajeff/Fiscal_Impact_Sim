@@ -10,6 +10,7 @@ export default function ControlPanel({
   taxRateRange,           // [min, max]
   deltaRange,             // [min, max]
   onRun,                  // enable or disable autorun
+  enableAutoRunDefault = false, // new: enable auto-run once baseline is loaded
 }) {
   
   const {
@@ -35,6 +36,15 @@ export default function ControlPanel({
     "spendAdjustments.defense",
     "spendAdjustments.education",
   ]);
+
+  // Turn on auto-run once when requested (e.g., when baseline finishes loading)
+  const didInitAutoRunFromProp = useRef(false);
+  useEffect(() => {
+    if (enableAutoRunDefault && !didInitAutoRunFromProp.current) {
+      setAutoRun(true);
+      didInitAutoRunFromProp.current = true;
+    }
+  }, [enableAutoRunDefault]);
 
   useEffect(() => {
     if (!didMount.current) { didMount.current = true; return; }

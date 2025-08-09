@@ -73,6 +73,7 @@ function AppInner() {
           taxRateRange={taxRateRange}
           deltaRange={deltaRange}
           onRun={(values) => simulate.mutate(values)}
+          enableAutoRunDefault={!!meta.data?.baselineLoaded}
         />
 
         {/* Results */}
