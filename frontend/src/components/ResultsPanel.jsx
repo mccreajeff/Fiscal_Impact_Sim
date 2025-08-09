@@ -8,12 +8,8 @@ export default function ResultsPanel({
     isError,
     error
 }) {
-  if (isPending)
-    return (
-      <section className="rounded-xl border p-6 bg-white dark:bg-slate-800 flex items-center justify-center">
-        <span className="animate-pulse text-slate-500">Computing…</span>
-      </section>
-    );
+  // removed: if (isPending) return (...) to avoid layout swap
+
   if (isError)
     return (
       <section className="rounded-xl border p-6 bg-white dark:bg-slate-800">
@@ -35,8 +31,8 @@ export default function ResultsPanel({
 
   return (
     <div className="space-y-6">
-      {/* Chart box (top) */}
-      <section className="rounded-xl border p-6 bg-white dark:bg-slate-800">
+      {/* Chart box (top) with stable height; no overlay */}
+      <section className="relative rounded-xl border p-6 bg-white dark:bg-slate-800 space-y-6 min-h-[440px]">
         <ResultChart revenue={revenue} spending={spending} />
       </section>
 
@@ -86,7 +82,7 @@ function KPI({ title, value, positive }) {
   return (
     <div className="rounded-md border p-4 flex flex-col">
       <span className="text-xs text-slate-500">{title}</span>
-      <span className={`text-xl font-bold ${color}`}>{value}</span>
+      <span className={`text-xl font-bold tabular-nums ${color}`}>{value}</span>
     </div>
   );
 }

@@ -43,9 +43,13 @@ function AppInner() {
   const controlsDisabled = meta.isLoading || !meta.data?.baselineLoaded;
 
   const [lastRunIso, setLastRunIso] = useState(null);
+  const [lastResult, setLastResult] = useState(null);
   const simulate = useMutation({
     mutationFn: postSimulate,
-    onSuccess: () => setLastRunIso(new Date().toISOString()),
+    onSuccess: (data) => {
+      setLastRunIso(new Date().toISOString());
+      setLastResult(data);
+    },
   });
 
   /* Fallbacks until meta loads) */
@@ -74,7 +78,7 @@ function AppInner() {
 
         {/* Results */}
         <ResultsPanel
-          data={simulate.data}
+          data={simulate.data ?? lastResult}
           isPending={simulate.isPending}
           isError={simulate.isError}
           error={simulate.error}

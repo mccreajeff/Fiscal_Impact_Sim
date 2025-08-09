@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useForm, Controller} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -16,12 +16,39 @@ export default function ControlPanel({
     control,
     handleSubmit,
     reset,
+    watch,
+    getValues,
     formState: {isValid},
   } = useForm({
     defaultValues: defaultValues,
     resolver: zodResolver(simRequestSchema),
     mode: "onChange",
   });
+
+// --- Auto-run additions ---
+  const [autoRun, setAutoRun] = useState(false);
+  const didMount = useRef(false);
+  const lastPayloadRef = useRef(null);
+  const watched = watch([
+    "taxRate",
+    "spendAdjustments.health",
+    "spendAdjustments.defense",
+    "spendAdjustments.education",
+  ]);
+
+  useEffect(() => {
+    if (!didMount.current) { didMount.current = true; return; }
+    if (!autoRun || disabled || !isValid) return;
+    const t = setTimeout(() => {
+      const payload = getValues();
+      const serialized = JSON.stringify(payload);
+      if (lastPayloadRef.current === serialized) return;
+      lastPayloadRef.current = serialized;
+      handleSubmit(onRun)();
+    }, 350); // was 300ms
+    return () => clearTimeout(t);
+  }, [watched, autoRun, disabled, isValid, getValues, handleSubmit, onRun]);
+// --- End auto-run additions ---
 
   return (
     <aside
@@ -164,6 +191,16 @@ export default function ControlPanel({
         >
           Reset All
         </button>
+
+        <label className="ml-auto flex items-center gap-1 text-xs select-none">
+          <input
+            type="checkbox"
+            checked={autoRun}
+            onChange={(e) => setAutoRun(e.target.checked)}
+            className="h-4 w-4 accent-indigo-600"
+          />
+          Auto-run on change
+        </label>
       </section>
     </aside>    
   );
