@@ -58,7 +58,7 @@ export default function ControlPanel({
     >
       {/* ───────── Tax Rate ───────── */}
       <section className="space-y-2">
-        <label className="block font-medium text-sm">Tax\u00A0Rate\u00A0(%)</label>
+        <label className="block font-medium text-sm">Tax&nbsp;Rate&nbsp;(%)</label>
 
         <Controller
           name="taxRate"
@@ -115,7 +115,7 @@ export default function ControlPanel({
       {/* ───────── Spending Adjustments ───────── */}
       <section className="space-y-2">
         <label className="block font-medium text-sm">
-          Spending Adjustments\u00A0(%)
+          Spending Adjustments&nbsp;(%)
         </label>
 
         {["health", "defense", "education"].map((cat) => (
