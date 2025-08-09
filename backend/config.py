@@ -1,6 +1,7 @@
 # backend/config.py
 from pathlib import Path
 from typing import Literal
+import logging
 
 from pydantic import AnyUrl, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -47,9 +48,15 @@ class Settings(BaseSettings):
 # Import this everywhere else
 settings = Settings()
 
+# Basic logging setup
+_level = logging.INFO if settings.app_env == "production" else logging.DEBUG
+logging.basicConfig(level=_level, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+
+logger = logging.getLogger("fis.config")
 if settings.app_env != "test":
-    print(
-        f"[config] ENV={settings.app_env}  "
-        f"FRONTEND_ORIGIN={settings.frontend_origin}  "
-        f"BASELINE_CSV={settings.baseline_csv}"
+    logger.info(
+        "ENV=%s FRONTEND_ORIGIN=%s BASELINE_CSV=%s",
+        settings.app_env,
+        settings.frontend_origin,
+        settings.baseline_csv,
     )
