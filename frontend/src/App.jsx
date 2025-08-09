@@ -5,7 +5,6 @@ import { getMetadata, postSimulate  } from './lib/api'
 import { defaultValues } from "./lib/schema"
 import { queryClient } from "./lib/queryClient"
 
-import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ControlPanel from './components/ControlPanel'

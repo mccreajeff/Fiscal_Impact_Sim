@@ -11,15 +11,15 @@ export default function Header({
   return (
     <header className="w-full border-b bg-app-card/80 backdrop-blur sticky top-0 z-10">
       <div className="mx-auto max-w-7xl px-4 py-3">
-        <div className="grid grid-cols-[1fr_auto] items-start gap-3">
-            <h1 className="min-w-0 break-words text-app-text text-3xl md:text-5xl font-semibold leading-tight tracking-tight">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <h1 className="col-start-2 justify-self-center text-center min-w-0 break-words text-app-text text-3xl md:text-5xl font-semibold leading-tight tracking-tight">
                 {title}
             </h1>
             <button
                 type="button"
                 onClick={onToggleTheme}
                 aria-label="Toggle dark mode"
-                className="justify-self-end shrink-0 btn bg-app-card"
+                className="col-start-3 justify-self-end shrink-0 btn bg-app-card"
                 title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
                 {isDark ? (<SunIcon className="h-5 w-5" />) : (<MoonIcon className="h-5 w-5" />

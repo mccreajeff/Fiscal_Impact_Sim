@@ -22,7 +22,7 @@ export default function ResultsPanel({
   if (!data)
     return (
       <section className="card p-6 flex items-center justify-center text-center text-app-muted">
-        Adjust controls and click\u00A0
+        Adjust controls and click&nbsp;
         <b className="text-app-text">Run Simulation</b>.
       </section>
     );
@@ -62,7 +62,7 @@ export default function ResultsPanel({
         {/* Assumptions */}
         <details className="text-xs open:mb-2">
           <summary className="cursor-pointer font-medium">Assumptions</summary>
-          <pre className="mt-2 bg-app-bg p-3 rounded">
+          <pre className="mt-2 bg-app-bg p-3 rounded font-mono">
 {JSON.stringify(assumptions, null, 2)}
           </pre>
         </details>
