@@ -32,7 +32,7 @@ export default function ResultsPanel({
   return (
     <div className="space-y-6">
       {/* Chart box (top) with stable height; no overlay */}
-      <section className="relative card p-6 space-y-6 min-h-[440px]">
+      <section className="relative card p-4 h-[420px] md:h-[480px]">
         <ResultChart revenue={revenue} spending={spending} />
       </section>
 
