@@ -9,21 +9,20 @@ export default function Header({
     isDark = false,         // optional boolean
  }) {
   return (
-    <header className="w-full border-b bg-white/80 backdrop-blur dark:bg-slate-900/80 sticky top-0 z-10">
+    <header className="w-full border-b bg-app-card/80 backdrop-blur sticky top-0 z-10">
       <div className="mx-auto max-w-7xl px-4 py-3">
         <div className="grid grid-cols-[1fr_auto] items-start gap-3">
-            <h1 className="min-w-0 break-words text-slate-900 dark:text-slate-100
-                            text-3xl md:text-5xl font-semibold leading-tight tracking-tight">
+            <h1 className="min-w-0 break-words text-app-text text-3xl md:text-5xl font-semibold leading-tight tracking-tight">
                 {title}
             </h1>
             <button
                 type="button"
                 onClick={onToggleTheme}
                 aria-label="Toggle dark mode"
-                className="justify-self-end shrink-0 rounded-md border border-slate-200 bg-white px-2.5 py-2 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700"
+                className="justify-self-end shrink-0 btn bg-app-card"
                 title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-                {isDark ? (<SunIcon className="h-5 w-5 text-slate-200" />) : (<MoonIcon className="h-5 w-5 text-slate-700" />
+                {isDark ? (<SunIcon className="h-5 w-5" />) : (<MoonIcon className="h-5 w-5" />
                 )}
             </button>
         </div>
@@ -32,7 +31,7 @@ export default function Header({
             href={githubHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className="inline-flex items-center gap-1 text-app-muted hover:text-app-text"
             aria-label="GitHub repository">
             <GitHubIcon className="h-5 w-5" />
             <span className="text-sm">GitHub</span>
@@ -41,7 +40,7 @@ export default function Header({
             href={docsHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className="inline-flex items-center gap-1 text-app-muted hover:text-app-text"
             aria-label="Project documentation">
             <BookIcon className="h-5 w-5" />
             <span className="text-sm">Docs</span>
@@ -50,7 +49,7 @@ export default function Header({
             href={websiteHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+            className="inline-flex items-center gap-1 text-app-muted hover:text-app-text"
             aria-label="Website">
             <CompassIcon className="h-5 w-5" />
             <span className="text-sm">Website</span>

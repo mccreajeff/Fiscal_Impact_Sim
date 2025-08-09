@@ -12,18 +12,18 @@ export default function ResultsPanel({
 
   if (isError)
     return (
-      <section className="rounded-xl border p-6 bg-white dark:bg-slate-800">
+      <section className="card p-6">
         <p className="text-rose-600 font-medium">Error</p>
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-app-muted">
           {error?.message || "Unknown error"}
         </p>
       </section>
     );
   if (!data)
     return (
-      <section className="rounded-xl border p-6 bg-white dark:bg-slate-800 flex items-center justify-center text-center text-slate-500">
-        Adjust controls and click&nbsp;
-        <b className="text-slate-700 dark:text-slate-300">Run Simulation</b>.
+      <section className="card p-6 flex items-center justify-center text-center text-app-muted">
+        Adjust controls and click\u00A0
+        <b className="text-app-text">Run Simulation</b>.
       </section>
     );
 
@@ -32,7 +32,7 @@ export default function ResultsPanel({
   return (
     <div className="space-y-6">
       {/* Chart box (top) with stable height; no overlay */}
-      <section className="relative rounded-xl border p-6 bg-white dark:bg-slate-800 space-y-6 min-h-[440px]">
+      <section className="relative card p-6 space-y-6 min-h-[440px]">
         <ResultChart revenue={revenue} spending={spending} />
       </section>
 
@@ -48,7 +48,7 @@ export default function ResultsPanel({
       </div>
 
       {/* Other info box (bottom) */}
-      <section className="rounded-xl border p-6 bg-white dark:bg-slate-800 space-y-6">
+      <section className="card p-6 space-y-6">
         {/* Category breakdown */}
         <div className="grid gap-2 md:grid-cols-2">
           {["health", "defense", "education", "other"].map((k) => (
@@ -62,7 +62,7 @@ export default function ResultsPanel({
         {/* Assumptions */}
         <details className="text-xs open:mb-2">
           <summary className="cursor-pointer font-medium">Assumptions</summary>
-          <pre className="mt-2 bg-slate-100 dark:bg-slate-700 p-3 rounded">
+          <pre className="mt-2 bg-app-bg p-3 rounded">
 {JSON.stringify(assumptions, null, 2)}
           </pre>
         </details>
@@ -74,14 +74,14 @@ export default function ResultsPanel({
 function KPI({ title, value, positive }) {
   const color =
     positive === undefined
-      ? "text-slate-800 dark:text-slate-100"
+      ? "text-app-text"
       : positive
       ? "text-emerald-600"
       : "text-rose-600";
 
   return (
-    <div className="rounded-md border p-4 flex flex-col">
-      <span className="text-xs text-slate-500">{title}</span>
+    <div className="card p-4 flex flex-col">
+      <span className="text-xs text-app-muted">{title}</span>
       <span className={`text-xl font-bold tabular-nums ${color}`}>{value}</span>
     </div>
   );

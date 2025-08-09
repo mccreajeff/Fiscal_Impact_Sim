@@ -57,7 +57,7 @@ function AppInner() {
   const deltaRange   = meta.data?.deltaRange   ?? [-1, 1];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col">
+    <div className="min-h-screen bg-app-bg text-app-text transition-colors flex flex-col">
       {/* ── HEADER ── */}
       <Header
         title="Fiscal Impact Simulator"

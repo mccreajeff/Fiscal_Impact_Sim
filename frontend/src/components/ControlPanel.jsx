@@ -52,13 +52,13 @@ export default function ControlPanel({
 
   return (
     <aside
-      className={`self-start h-fit rounded-xl border bg-white dark:bg-slate-800 p-4 space-y-6 ${
+      className={`self-start h-fit card p-4 space-y-6 ${
         disabled ? "opacity-60" : ""
       }`}
     >
       {/* ───────── Tax Rate ───────── */}
       <section className="space-y-2">
-        <label className="block font-medium text-sm">Tax&nbsp;Rate&nbsp;(%)</label>
+        <label className="block font-medium text-sm">Tax\u00A0Rate\u00A0(%)</label>
 
         <Controller
           name="taxRate"
@@ -101,13 +101,13 @@ export default function ControlPanel({
                   if (field.value === '' || field.value === null || isNaN(field.value))
                     field.onChange(taxRateRange[0]);
                 }}
-                className="w-16 rounded-md border px-2 py-1 text-right"
+                className="input w-16 text-right"
               />
             </div>
           )}
         />
 
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-app-muted">
           Overall average tax rate ({taxRateRange[0]}–{taxRateRange[1]} %).
         </p>
       </section>
@@ -115,7 +115,7 @@ export default function ControlPanel({
       {/* ───────── Spending Adjustments ───────── */}
       <section className="space-y-2">
         <label className="block font-medium text-sm">
-          Spending Adjustments&nbsp;(%)
+          Spending Adjustments\u00A0(%)
         </label>
 
         {["health", "defense", "education"].map((cat) => (
@@ -150,7 +150,7 @@ export default function ControlPanel({
                       field.onChange(p / 100);
                     }}
                     onBlur={() => field.onChange(clampP(percent) / 100)}
-                    className="w-16 rounded-md border px-2 py-1 text-right"
+                    className="input w-16 text-right"
                   />
 
                   {/* Slider (percent-based) */}
@@ -179,7 +179,7 @@ export default function ControlPanel({
           type="button"
           onClick={handleSubmit(onRun)}
           disabled={disabled || !isValid}
-          className="rounded bg-indigo-600 px-4 py-2 text-white disabled:opacity-40"
+          className="btn-primary disabled:opacity-40"
         >
           Run Simulation
         </button>
@@ -187,7 +187,7 @@ export default function ControlPanel({
         <button
           type="button"
           onClick={() => reset(defaultValues)}
-          className="text-sm underline"
+          className="btn-secondary"
         >
           Reset All
         </button>
