@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=ROOT_DIR / "backend" / ".env",  # auto-read if present
         env_file_encoding="utf-8",
-        case_sensitive=True,
+        case_sensitive=False,
     )
 
     # If file is missing, app fails
