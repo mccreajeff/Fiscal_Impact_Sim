@@ -160,7 +160,7 @@ export default function ControlPanel({
                       field.onChange(p / 100);
                     }}
                     onBlur={() => field.onChange(clampP(percent) / 100)}
-                    className="input w-16 text-right"
+                    className="input w-[8.5ch] text-right"
                   />
 
                   {/* Slider (percent-based) */}
