@@ -2,8 +2,9 @@
 from pathlib import Path
 from typing import Literal
 import logging
+from urllib.parse import urlparse
 
-from pydantic import AnyUrl, Field, field_validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT_DIR = Path(__file__).resolve().parent.parent  # project root
@@ -20,9 +21,9 @@ class Settings(BaseSettings):
 
     # ----- Core keys -----
     app_env: Literal["development", "test", "production"] = "development"
-    frontend_origin: AnyUrl = Field(
+    frontend_origin: str = Field(
         default="http://localhost:5173",
-        description="Exact origin your SPA is served from",
+        description="Exact Origin of the SPA, e.g. https://your-app.vercel.app",
     )
     baseline_csv: Path = Field(
         default=ROOT_DIR / "data" / "baseline_2025.csv",
@@ -43,6 +44,19 @@ class Settings(BaseSettings):
         if not v.exists():
             raise FileNotFoundError(f"Baseline CSV not found at {v}")
         return v
+    
+    @field_validator("frontend_origin", mode="before")
+    @classmethod
+    def normalize_origin(cls, v: str) -> str:
+        if v is None:
+            return v
+        s = str(v).strip().rstrip("/")  # remove trailing slash
+        p = urlparse(s)
+        if p.scheme not in ("http", "https") or not p.netloc or p.path:
+            raise ValueError(
+                "FRONTEND_ORIGIN must be a bare origin like https://example.com (no path)"
+            )
+        return s
 
 
 # Import this everywhere else

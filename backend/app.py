@@ -32,10 +32,10 @@ app = FastAPI(title="Fiscal Impact Simulator",
 
 # ---- CORS middleware ----
 if settings.app_env == "production":
-    allowed_origins = {str(settings.frontend_origin)}
+    allowed_origins = {settings.frontend_origin}
 else:
     allowed_origins = {
-        str(settings.frontend_origin),   # from env
+         settings.frontend_origin,   # from env
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     }
