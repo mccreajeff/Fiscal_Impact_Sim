@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Header({ 
     title = "Fiscal Impact Simulator",
-    docsHref = "/docs",
+    docsHref = "https://api.jeffmccrea.com/docs",
     githubHref = "https://github.com/mccreajeff/Fiscal_Impact_Sim",
     websiteHref = "https://github.com/mccreajeff",
     onToggleTheme,          // optional function
